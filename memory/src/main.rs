@@ -1,5 +1,5 @@
 slint::slint!(
-    import { MainWindow } from "../ui/main.slint";
+    import { MainWindow } from "ui/main.slint";
 );
 fn main() {
     use slint::Model;
@@ -14,7 +14,6 @@ fn main() {
     tiles.shuffle(&mut rng);
 
 
-    // assing
     let tiles_model = std::rc::Rc::new(slint::VecModel::from(tiles));
     main_win.set_memory_tiles(tiles_model.clone().into());
 
