@@ -1,0 +1,149 @@
+import { Button, VerticalBox } from "std-widgets.slint";
+
+Tile := Rectangle {
+    width: 60px;
+    height: 60px;
+    background: #3960D5;
+
+    property <bool> open_curtain;
+    property <image> icon <=> img.source;
+    callback clicked;
+
+    img := Image {
+        source: @image-url("icons/at-solid.svg");
+        width: 100%;
+        height: 100%;
+    }
+    Rectangle {
+        height: 100%;
+        width: open_curtain ? 0% : 50%;
+        animate width { duration: 200ms; easing: ease-in;}
+        background: #193076;
+    }
+    Rectangle {
+        height: 100%;
+        width: open_curtain ? 0% : 50%;
+        x: parent.width - width;
+        animate width { duration: 200ms; easing: ease-in;}
+        background: #193076;
+    }
+    TouchArea {
+        clicked => { 
+            //open_curtain = !open_curtain;
+            root.clicked();
+        }
+    }
+}
+
+struct TileData := {
+    icon: image,
+    is_open: bool,
+}
+
+MainWindow := Window {
+    width: 326px;
+    height: 326px;
+
+    callback tile_open(int);
+
+    property <[TileData]> memory_tiles: [
+        { 
+            icon: @image-url("icons/bicycle.png"), 
+             
+        },
+        { 
+            icon: @image-url("icons/cloud.png"), 
+             
+        },
+        { 
+            icon: @image-url("icons/at.png"), 
+             
+        },
+        { 
+            icon: @image-url("icons/motorcycle-solid.svg"), 
+             
+        },
+        { 
+            icon: @image-url("icons/bicycle.png"), 
+             
+        },
+        { 
+            icon: @image-url("icons/cloud.png"), 
+             
+        },
+        { 
+            icon: @image-url("icons/at.png"),
+             
+        },
+        { 
+            icon: @image-url("icons/motorcycle-solid.svg"),
+             
+        },
+        { 
+            icon: @image-url("icons/bicycle.png"),
+            
+        },
+        { 
+            icon: @image-url("icons/cloud.png"), 
+             
+        },
+        { 
+            icon: @image-url("icons/at.png"), 
+             
+        },
+        { 
+            icon: @image-url("icons/motorcycle-solid.svg"), 
+             
+        },
+        { 
+            icon: @image-url("icons/bicycle.png"), 
+             
+        },
+        { 
+            icon: @image-url("icons/cloud.png"), 
+             
+        },
+        { 
+            icon: @image-url("icons/at.png"), 
+             
+        },
+        { 
+            icon: @image-url("icons/motorcycle-solid.svg"), 
+             
+        },
+    ];
+        
+    for tile[index] in  memory_tiles:
+        Tile { 
+            x: mod(index, 4) * 75px;
+            y: floor(index / 4) * 75px;
+            icon: tile.icon; 
+            open_curtain: tile.is_open;
+            clicked => {
+                root.tile_open(index);
+            }
+        }
+        
+    
+    
+}
+//MainWindow := Window {
+    // VerticalBox {
+    //     //spacing: 20px;
+    //     first_rect := Rectangle {
+    //         Rectangle {
+    //             background: blue;
+    //         }
+    //         height: 20px;
+    //     }
+    //     text := Text {
+    //         text: "hello";
+    //         //y: first_rect.height;
+    //     }
+    //     Rectangle {}
+    //     Button {
+    //         text: "Push Me";
+
+    //     }
+    // }
+//}
